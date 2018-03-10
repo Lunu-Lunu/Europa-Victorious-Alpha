@@ -1,0 +1,423 @@
+add_namespace = hispaniola
+# Cuban Terrorists
+country_event = {
+	id = hispaniola.1
+	title = hispaniola.1.t
+	desc = hispaniola.1.desc
+	
+	fire_only_once = yes
+	trigger = {
+		tag = HAI
+		CUB = {
+			is_puppet_of = HAI
+		}
+		date > 1936.4.30
+		date < 1936.5.30
+	}
+	mean_time_to_happen = {
+		days = 3
+	}
+	immediate = {
+		set_country_flag = HAI_flag_cuban_election_terrorist_attack
+	}
+	# Postpone Elections
+	option = {
+		name = hispaniola.1.a
+		ai_chance = { factor = 25 }
+		set_country_flag = HAI_flag_postpone_elections
+		add_political_power = 50
+		add_stability = -0.05
+	}
+	option = {
+		name = hispaniola.1.b
+		ai_chance = { factor = 75 }
+		set_country_flag = HAI_flag_elections_go_on
+		add_political_power = -25
+		add_stability = 0.05
+	}
+}
+# 1937 Election
+country_event = {
+	id = hispaniola.2
+	title = hispaniola.2.t
+	desc = hispaniola.2.desc
+	
+	fire_only_once = yes
+	trigger = {
+		tag = HAI
+		has_country_flag = HAI_flag_elections_go_on
+		NOT = {
+			has_country_flag = HAI_flag_postpone_elections
+			has_country_flag = HAI_flag_1937_elections_ongoing
+			has_country_flag = HAI_flag_1937_elections_complete
+		}
+		date > 1936.12.31
+		date < 1937.1.31
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	immediate = {
+		set_country_flag = HAI_flag_1937_elections_ongoing
+	}
+	# NatCom
+	option = {
+		name = hispaniola.2.a
+		set_country_flag = HAI_flag_1937_natcom_elected
+		set_country_flag = HAI_flag_1937_elections_complete
+		clr_country_flag = HAI_flag_1937_elections_ongoing
+		clr_country_flag = HAI_flag_elections_go_on
+	}
+	#Socialists
+	option = {
+		name = hispaniola.2.b
+		set_country_flag = HAI_flag_1937_socialist_elected
+		set_country_flag = HAI_flag_1937_elections_complete
+		clr_country_flag = HAI_flag_1937_elections_ongoing
+		clr_country_flag = HAI_flag_elections_go_on
+		set_politics = {
+			ruling_party = socialism
+			elections_allowed = no
+		}
+		add_popularty = {
+			ideology = socialism
+			popularity = 25
+		}
+	}
+	# Commie
+	option = {
+		name = hispaniola.2.c
+		set_country_flag = HAI_flag_1937_commie_elected
+		set_country_flag = HAI_flag_1937_elections_complete
+		clr_country_flag = HAI_flag_1937_elections_ongoing
+		clr_country_flag = HAI_flag_elections_go_on
+		set_politics = {
+			ruling_party = communism
+			elections_allowed = no
+		}
+		add_popularty = {
+			ideology = communism
+			popularity = 20
+		}
+	}
+	#IntNat
+	option = {
+		name = hispaniola.2.d
+		set_country_flag = HAI_flag_1937_intnat_elected
+		set_country_flag = HAI_flag_1937_elections_complete
+		clr_country_flag = HAI_flag_1937_elections_ongoing
+		clr_country_flag = HAI_flag_elections_go_on
+		set_politics = {
+			ruling_party = internationalism
+			elections_allowed = no
+		}
+		add_popularty = {
+			ideology = internationalism
+			popularity = 30
+		}
+	}
+}
+# Cuban Annexation
+country_event = {
+	id = hispaniola.3
+	title = hispaniola.3.t
+	desc = hispaniola.3.desc
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+	# Accept
+	option = {
+		name = hispaniola.3.a
+		HAI = {
+			country_event = { id = hispaniola.4 days = 1 }
+		}
+	}
+	# Refuse
+	option = {
+		name = hispaniola.3.b
+		add_political_power = 100
+		add_stability = 0.3
+		if = {
+			limit = {
+				has_idea = CUB_idea_cubans_restricted
+			}
+			remove_ideas = { CUB_idea_cubans_restricted }
+		}
+		if = {
+			limit = {
+				has_idea = CUB_idea_pro_hispaniolan_education
+			}
+			remove_ideas = CUB_idea_pro_hispaniolan_education
+		}
+		HAI = {
+			country_event = { id = hispaniola.5 days = 1 }
+		}
+	}
+}
+country_event = {
+	id = hispaniola.4
+	title = hispaniola.4.t
+	desc = hispaniola.4.desc
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = hispaniola.4.a
+		315 = {
+			add_core_of = HAI
+		}
+		annex_country = { target = CUB transfer_troops = yes }
+		add_named_threat = { threat = 4 name = CUB.annexed }
+		add_political_power = 50
+		set_country_flag = CUB_annexed
+	}
+}
+country_event = {
+	id = hispaniola.5
+	title = hispaniola.5.t
+	desc = hispaniola.5.desc
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = hispaniola.5.a
+		if = {
+			limit = {
+				has_dlc = "Together for Victory"
+			}
+			set_autonomy = {
+				target = CUB
+				autonomous_state = autonomy_free
+			}
+			else = {
+				end_puppet = CUB
+			}
+		}
+		declare_war_on = {
+			target = CUB
+			type = annex_everything
+		}
+		315 = {
+			add_core_of = HAI
+		}
+	}
+}
+# Hispaniolan Privateer Seize Bahamas & Jamaica
+country_event = {
+	id = hispaniola.6
+	title = hispaniola.6.t
+	desc = hispaniola.6.desc
+	
+	fire_only_once = yes
+	trigger = {
+		date > 1938.6.30
+		date < 1938.9.30
+		ENG = {
+			owns_state = 690
+			owns_state = 693
+			owns_state = 689
+		}
+		tag = ENG
+	}
+	mean_time_to_happen = {
+		days = 14
+	}
+	immediate = {
+		add_named_threat = { threat = 2 name = BAH.JAM.HAI.seized }
+		HAI = {
+			transfer_state = 690
+			transfer_state = 693
+			transfer_state = 689
+			add_state_core = 690
+			add_state_core = 693
+			add_state_core = 689
+		}
+	}
+	# Demand Return of Islands
+	option = {
+		name = hispaniola.6.a
+		HAI = {
+			country_event = { id = hispaniola.7 days = 1 }
+		}
+		add_political_power = -50
+		will_lead_to_war_with = HAI
+	}
+	# Seek Compromise
+	option = {
+		name = hispaniola.6.b
+		HAI = {
+			country_event = { id = hispaniola.8 days = 1 }
+		}
+		add_political_power = -100
+		add_stability = -0.05
+	}
+	# Let It Happen
+	option = {
+		name = hispaniola.6.c
+		HAI = {
+			country_event = { id = hispaniola.9 days = 1 }
+		}
+		add_political_power = -25
+		add_stability = -0.1
+	}
+}
+# Britain Demands Return of Islands
+country_event = {
+	id = hispaniola.7
+	title = hispaniola.7.t
+	desc = hispaniola.7.desc
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	# Back Down
+	option = {
+		name = hispaniola.7.a
+		remove_state_core = 690
+		remove_state_core = 693
+		remove_state_core = 689
+		ENG = {
+			transfer_state = 690
+			transfer_state = 693
+			transfer_state = 689
+		}
+		add_stability = -0.15
+	}
+	# Stand Fast
+	option = {
+		name = hispaniola.7.b
+		ENG = {
+			create_wargoal = {
+				target = HAI
+				type = annex_everything
+			}
+		}
+		add_stability = 0.1
+		add_political_power = 100
+	}
+}
+# Negotiations
+country_event = {
+	id = hispaniola.8
+	title = hispaniola.8.t
+	desc = hispaniola.8.desc
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	#Make Them Independent States
+	option = {
+		name = hispaniola.8.a
+		ENG = {
+			country_event = { id = hispaniola.10 days = 1 }
+		}
+		add_political_power = -25
+	}
+	#Make Them Puppet States
+	option = {
+		name = hispaniola.8.b
+		ENG = {
+			country_event = { id = hispaniola.11 days = 1 }
+		}
+		add_political_power = -50
+	}
+	# Refuse Negotiations
+	option = {
+		name = hispaniola.8.c
+		ENG = {
+			create_wargoal = {
+				target = HAI
+				type = annex_everything
+			}
+		}
+		add_political_power = 50
+	}
+}
+# Britain Allows It
+country_event = {
+	id = hispaniola.9
+	title = hispaniola.9.t
+	desc = hispaniola.9.desc
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = hispaniola.9.a
+		add_stability = 0.2
+	}
+}
+country_event = {
+	id = hispaniola.10
+	title = hispaniola.10.t
+	desc = hispaniola.10.desc
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	# Accept Deal
+	option = {
+		name = hispaniola.10.a
+		BAH = {
+			transfer_state = 690
+			transfer_state = 693
+			add_state_core = 690
+			add_state_core = 693
+		}
+		JAM = {
+			transfer_state = 689
+			add_state_core = 689
+		}
+	}
+	# Refuse, This Means War
+	option = {
+		name = hispaniola.10.b
+		create_wargoal = {
+			target = HAI
+			type = annex_everything
+		}
+	}
+}
+country_event = {
+	id = hispaniola.11
+	title = hispaniola.11.t
+	desc = hispaniola.11.desc
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	# Accept Deal
+	option = {
+		name = hispaniola.11.a
+		BAH = {
+			transfer_state = 690
+			transfer_state = 693
+			add_state_core = 690
+			add_state_core = 693
+		}
+		JAM = {
+			transfer_state = 689
+			add_state_core = 689
+		}
+		HAI = {
+			set_autonomy = {
+				target = BAH
+				autonomous_state = autonomy_puppet
+			}
+			set_autonomy = {
+				target = JAM
+				autonomous_state = autonomy_puppet
+			}
+		}
+	}
+	# Refuse, This Means War
+	option = {
+		name = hispaniola.11.b
+		create_wargoal = {
+			target = HAI
+			type = annex_everything
+		}
+	}
+}
