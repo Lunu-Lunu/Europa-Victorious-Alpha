@@ -1,5 +1,6 @@
 #reload countrycolors
 
+
 KON = {
 	color = rgb { 219 219 119 }
 	color_ui = rgb { 255 255 155 }
@@ -28,6 +29,7 @@ HAI = {
 	color = rgb { 174 113 113 }
 	color_ui = rgb { 174 113 113 }
 }
+
 GER = {
 	color = HSV { 0.1 0.15 0.4 }
 	color_ui = rgb { 138 155 116 }
@@ -302,6 +304,7 @@ PAR = {
 	color = rgb { 57 113 228 }
 	color_ui = rgb { 74 147 255 }
 }
+
 YEM = {
 	color = rgb { 155 101 107 }
 	color_ui = rgb { 202 131 139 }
@@ -547,3 +550,10 @@ D15 = {
 	color = rgb { 194 140 86 }
 	color_ui = rgb { 252 182 112 }
 }
+
+BAL = {
+	color = rgb { 142 140 84 }
+	color_ui = rgb { 142 140 84 }
+}
+
+
