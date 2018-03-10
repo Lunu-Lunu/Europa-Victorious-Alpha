@@ -32,6 +32,9 @@
  rightwing_democrat:0 "Right Wing Democrat"
  rightwing_democrat_noun:0 "Right Wing Democracy"
  rightwing_democrat_desc:0 "Right Wing Regime"
+ theocracy:0 "Theocratic"
+ theocracy_noun:0 "Theocracy"
+ theocracy_desc:0 "Theocratic Regime"
 
  #######PARTIES#######
  
